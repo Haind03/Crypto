@@ -67,4 +67,4 @@
     </tbody>
 </table>
                 
-- You can read carefully write up in <td markdown="span"><a href="intro/note.md">Note for begginer</a></td>
+- You can read detailed write up here <td markdown="span"><a href="intro/note.md">Note for begginer</a></td>.
