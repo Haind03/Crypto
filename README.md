@@ -66,4 +66,4 @@
         </tr>     
     </tbody>
 </table>
-- You can read carefully write up in <td markdown="span"><a href="intro/note.md">Favourite Byte</a></td>
+- You can read carefully write up in <td markdown="span"><a href="intro/note.md">Note for begginer</a></td>
