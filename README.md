@@ -62,7 +62,6 @@
             <td markdown="span"><a href="intro/YoueitherknowXORyoudon't.py">You either know. XOR you don't</a></td>
             <td markdown="span">Solved</td>
             <td markdown="span">30</td
-        </tr>
-      
+        </tr>     
     </tbody>
 </table>
