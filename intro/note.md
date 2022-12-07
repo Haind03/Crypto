@@ -1,26 +1,25 @@
 
-# I. Khái niệm về `decode()` và `encode()`, `Encryption` và `Decryption`.
+# I. Concepts of `decode()` and `encode()`, `Encryption` and `Decryption`.
 
-- `Encoding` là quá trình chuyển đổi chuỗi các ký tự như là chữ cái, chữ số và các ký tự đặc biệt thành một dạng format khác theo quy chuẩn nhất định (ví dụ như theo bảng mã ASCII) để truyền dẫn một cách hiệu quả.
-- `Decoding` là quá trình chuyển đổi chuỗi ký tự đã bị encoding về lại trạng thái ban đầu. Quá trình này hoàn toàn khác với mã hóa - Encryption mà chúng ta vẫn hay lầm tưởng.
+- `Encoding` is the process of converting a string of characters such as letters, numbers and special characters into another format according to a certain standard (for example, according to the ASCII code table) for transmission. effective.
+- `Decoding` is the process of converting an encoded character string back to its original state. This process is completely different from encryption - Encryption that we often mistakenly believe.
 
-- Dữ liệu có thể được đọc và hiểu mà không cần bất kỳ biện pháp đặc biệt nào được gọi là plaintext, trong khi phương pháp ngụy trang plaintext để che giấu thông tin thực sự của nó được gọi là `Encryption` - mã hóa.
+- Data that can be read and understood without any special measures is called plaintext, while the method of disguising plaintext to hide its real information is called `Encryption`.
 ```
 How Encryption Works?
-Một thuật toán mã hóa hoạt động kết hợp với một key (key có thể là một chuỗi các ký tự, các con số) để mã hóa văn bản và cùng một văn bản sẽ được mã hóa thành các phiên bản khác nhau với các khóa khác nhau. Vì vậy, dữ liệu được mã hóa hoàn toàn phụ thuộc vào các tham số, ví dụ như độ mạnh của thuật toán mã hóa và tính bảo mật của khóa.
+An encryption algorithm works in combination with a key (the key can be a sequence of characters, numbers) to encrypt text, and the same text will be encrypted into different versions with different keys. difference. So the data to be encrypted completely depends on the parameters, for example the strength of the encryption algorithm and the security of the key.
 
-Đầu tiên chúng ta buộc phải sử dụng SSL certificate và install nó trên webserver. Nếu SSL không được sử dụng thì dữ liệu không thể được mã hóa. Một khi certificate được cài đặt, cần phải cấu hình cho server cốt để các pages sẽ hoạt động trên HTTPS - giao thức bảo mật thay vì HTTP version - giao thức không bảo mật.
+First we have to use SSL certificate and install it on the webserver. If SSL is not used, the data cannot be encrypted. Once the certificate is installed, it is necessary to configure the server so that the pages will operate on HTTPS - the secure protocol instead of the HTTP version - the unsecured protocol.
 
-Dữ liệu được mã hóa thường gọi là ciphertext và dữ liệu thông thường không được mã hóa thì gọi là plaintext. Khi user gửi một đoạn plaintext lên server, plaintext sẽ được mã hóa thành ciphertext nhờ public-key. Gói tin được đảm bảo an toàn và thông tin đã hoàn toàn được mã hóa trên đường truyền (encryption message). Sau đó, private-key sẽ đảm nhận nhiệm vụ giải mã nội dung gói tin. 2 loại khóa này đều được tạo nên từ những dãy số ngẫu nhiên. Public-key sẽ được chia sẻ với mọi người, nhưng Private-key phải được giữ bí mật, nó sẽ nằm hoàn toàn ở người có quyền giải mã. 2 key này hoạt động với nhiệm vụ hoàn toàn khác nhau. Như vậy khi người gửi tin nhắn mã hóa dữ liệu bằng public-key, và người nhận sẽ tiến hành giải mã bằng private-key và ngược lại.
+Encrypted data is often called ciphertext and normally unencrypted data is called plaintext. When the user sends a plaintext to the server, the plaintext will be encrypted into a ciphertext using the public-key. The packet is secure and the information is completely encrypted on the transmission (encryption message). Then, the private-key will take on the task of decrypting the packet content. These two types of keys are generated from sequences of random numbers. The public-key will be shared with everyone, but the private-key must be kept secret, it will lie entirely with the person who has the right to decrypt it. These 2 keys work with completely different tasks. So when the sender encrypts the data with the public-key, and the receiver will decrypt it with the private-key and vice versa.
 ```
 
-- Plaintext được mã hóa được gọi là văn bản mã hóa và quá trình hoàn nguyên dữ liệu được mã hóa trở lại văn bản thuần túy được gọi là `Decryption` - giải mã.
-
+- Encrypted plaintext is called ciphertext and the process of reverting encrypted data back to plain text is called `Decryption`.
 # II. INTRODUCTION
-## 1. Sử dụng python trong crypto
+## 1. Python in Crypto
 
-- `chr()` là hàm sử dụng để chuyển dạng hex về chữ trong bảng mã ascii
-- `ord()` là hàm ngược lại với `chr()` 
+- `chr()` is a function used to convert hex to text in the ascii charset
+- `ord()` is the opposite of `chr()`
 
 ```
 import sys
@@ -30,13 +29,13 @@ print("".join(chr(o) for o in chuoi))
 ```
 - Flag : `crypto{ASCII_pr1nt4bl3}`
 
-## 2. Mã hóa trong crypto
+## 2.Crypto
 
 ### 2.1 HEX
 
-- Khi chúng ta mã hóa 1 thứ gì đó thì bản mã hóa chúng ta thu được sẽ không phải là các ký tự ASCII có thể in ra màn hình. Vì vậy nếu chúng ta muốn chia sẽ dự liệu đã mã hóa của mình, chúng ta sẽ mã hóa dữ liệu đó thành những thứ thân thiện với người dùng trên các loại hệ thống khác nhau. Có thể là dưới dạng chuỗi hex như ví dụ dưới đây :
-- Chúng ta sẽ sử dụng `bytes.fromhex()` để chuyển các kí tự hex về dạng ascii có thể in ra màn hình.
-- Ngược lại `bytes.hex()` sẽ chuyển các kí tự về dạng hex.
+- When we encode something, the encoding we get will not be ASCII characters that can be printed on the screen. So if we want to share our encrypted data, we will encode that data into user-friendly things on different types of systems. Can be as a hex string like the example below:
+- We will use `bytes.fromhex()` to convert the hex characters to printable ascii form.
+- Otherwise `bytes.hex()` will convert the characters to hex format.
 
 ```
 
@@ -55,9 +54,9 @@ b'crypto{You_will_be_working_with_hex_strings_a_lot}'
 
 ### 2.2 BASE64
 
-- Một loại mã hóa phổ biến khác là base64, chúng cho phép biểu diễn dữ liệu nhị phân dưới dạng chuỗi ASCII sử dụng 64 ký tự. Một ký tự của chuỗi Base64 mã hóa 6 bit và do đó 4 ký tự của Base64 mã hóa ba byte 8 bit.
-- Trong python có thư viện hỗ trợ cho base64 `import base64` trong đó ta sử dụng hàm `base64.b64encode()` để giải mã từ dạng ascii và ngược lại ta cũng có hàm `base64.b64decode()` để chuyển từ base64 về ngược lại ascii.
-- Xem ví dụ dưới đây :
+- Another popular encoding is base64, which allows binary data to be represented as ASCII strings using 64 characters. One character of a Base64 string encodes 6 bits, and thus 4 characters of Base64 encodes three 8-bit bytes.
+- In python there is support library for base64 `import base64` in which we use `base64.b64encode()` function to decode ascii word and vice versa we also have `base64.b64decode()` function to convert word base64 back to ascii.
+- See example below:
 
 ```
 import base64
@@ -69,7 +68,6 @@ print(x)
 x = base64.b64decode(x)
 print(x)
 ```
-- Sau khi chạy đoạn mã trên ta có được nội dung như sau :
 ```
 b'r\xbc\xa9\xb6\x8f\xc1j\xc7\xbe\xeb\x8f\x84\x9d\xca\x1d\x8ax>\x8a\xcf\x96y\xbf\x92i\xf7\xbf'
 b'crypto/Base+64+Encoding+is+Web+Safe/'
@@ -79,11 +77,9 @@ b'r\xbc\xa9\xb6\x8f\xc1j\xc7\xbe\xeb\x8f\x84\x9d\xca\x1d\x8ax>\x8a\xcf\x96y\xbf\
 
 ### 2.3 LIBRARY CRYPTO
 
-- Cài đặt thư viện CRYPTO bằng lệnh sau: ` pip3 install pycryptodome
-`
-- Để sử dụng các hàm trong thư viện ta import thư viện bằng dòng lệnh `from Crypto.Util.number import *`
-- Ngoài ra có 2 hàm thường sử dụng đó là `long_to_bytes()` và `bytes_to_long()` xem ví dụ dưới đây:
-
+- Install the CRYPTO library with the following command: ` pip3 install pycryptodome`
+- To use the functions in the library, import the library using the command line `from Crypto.Util.number import *`
+- In addition, there are 2 commonly used functions that are `long_to_bytes()` and `bytes_to_long()` see the example below:
 ```
 halston in ~/Crypto/Intro/Cr5 λ cat cr5.py
 from Crypto.Util.number import *
@@ -98,20 +94,18 @@ b'crypto{3nc0d1n6_4ll_7h3_w4y_d0wn}'
 
 ### 2.4 XOR
 
- 1. ví dụ về xor: Given the string "label", XOR each character with the integer 13. Convert these integers back to a string and submit the flag as crypto{new_string}
-
+1. example of xor: Given the string "label", XOR each character with the integer 13. Convert these integers back to a string and submit the flag as crypto{new_string}
 ```
 x = "label"
 strig = [ord(o) for o in x]
 print(strig)
 print("".join((chr(13 ^ o) for o in strig)))
 ```
-- Chúng ta thu được chuỗi mới
 ```
 [108, 97, 98, 101, 108]
 aloha
 ```
-- Vậy Flag: `crypto{aloha}`
+- Flag: `crypto{aloha}`
 
  2. XOR PROPERTIES
 ```
@@ -133,8 +127,7 @@ KEY2 ^ KEY1 = 37dcb292030faa90d07eec17e3b1c6d8daf94c35d4c9191a5e1e
 KEY2 ^ KEY3 = c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1
 FLAG ^ KEY1 ^ KEY3 ^ KEY2 = 04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf
 ```
-
-- Ta có đoạn code giải mã:
+- Solution:
 ```
 halston in ~/Crypto/Intro/CR7 λ cat cr7.py
 # KEY2 ^ KEY1 = 37dcb292030faa90d07eec17e3b1c6d8daf94c35d4c9191a5e1e
