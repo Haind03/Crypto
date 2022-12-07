@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr>
-            <td markdown="span"><a href="Protostar/Stack0">Stack 0</a></td>
+            <td markdown="span"><a href="intro/ASCII.py">ASCII</a></td>
             <td markdown="span">Solved</td>
         </tr>
         <tr>
